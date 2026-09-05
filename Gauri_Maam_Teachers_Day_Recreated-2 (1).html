@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Gauri Ma'am ❤️</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;font-family:Georgia,serif;overflow-x:hidden;
+  background:linear-gradient(135deg,#fff7fb,#ffe4ef,#fff);
+  color:#4b2636;
+}
+.petal{position:fixed;top:-30px;font-size:20px;animation:fall linear infinite;opacity:.65;z-index:0}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.container{position:relative;z-index:1;max-width:900px;margin:auto;padding:28px 18px 50px;text-align:center}
+.badge{display:inline-block;background:#fff;border:1px solid #f3b5cb;border-radius:50px;padding:9px 18px;color:#b63c69;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 8px 25px #c94c7620}
+h1{font-size:clamp(42px,10vw,82px);margin:28px 0 8px;color:#a82e5b;text-shadow:2px 3px 0 #fff}
+.subtitle{font-family:Arial,sans-serif;font-size:17px;color:#775463}
+.card{
+ margin:35px auto;background:#ffffffd9;backdrop-filter:blur(8px);
+ border:1px solid #f4c3d3;border-radius:28px;padding:30px 24px;
+ box-shadow:0 20px 60px #a52e591c;max-width:720px;
+}
+.flower{font-size:55px;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(3deg)}}
+.message{font-size:20px;line-height:1.8;margin:18px 0}
+.highlight{color:#b02e5d;font-weight:bold}
+button{
+ border:0;border-radius:50px;padding:14px 24px;margin:8px;
+ background:#b83363;color:white;font-size:16px;cursor:pointer;
+ box-shadow:0 8px 20px #b8336340;transition:.25s;touch-action:manipulation
+}
+button:hover{transform:translateY(-3px);background:#92264e}
+button.secondary{background:white;color:#a52e59;border:1px solid #e9a9c0}
+.hidden{display:none}
+.surprise{
+ margin-top:25px;padding:24px;border-radius:22px;background:#fff1f6;
+ animation:pop .55s ease;
+}
+@keyframes pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+.quote{font-style:italic;font-size:22px;line-height:1.6;color:#8c3658}
+.second{margin-top:18px;padding:20px;border-radius:18px;background:#fff}
+
+.signature{margin-top:22px;font-size:18px}
+.footer{font-family:Arial,sans-serif;font-size:13px;color:#987381;margin-top:28px}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:5}
+@media(max-width:500px){
+ .card{padding:25px 18px;border-radius:22px}
+ .message{font-size:18px}
+ .quote{font-size:19px}
+}
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+
+<div class="container">
+  <div class="badge">🌷 Teachers' Day • A little surprise</div>
+  <h1>Happy Teachers' Day</h1>
+  <p class="subtitle">Especially for <b>Gauri Ma'am</b> 💗</p>
+
+  <div class="card">
+    <div class="flower">🌸</div>
+    <p class="message">
+      Dear <span class="highlight">Gauri Ma'am</span>,<br><br>
+      Thank you for always making learning feel a little easier,
+      brighter, and more meaningful. Your guidance and kindness
+      truly make a difference.
+    </p>
+    <button onclick="showSurprise()">🎁 Open a Small Surprise</button>
+
+    <div id="surprise" class="surprise hidden">
+      <div class="quote">
+        “Some teachers teach lessons,
+        but the best ones make those lessons unforgettable.” 🌷
+      </div>
+      <p class="signature">Thank you for being such a wonderful teacher. 🌷</p>
+      <button class="secondary" onclick="secondSurprise()">✨ One More Surprise</button>
+      <div id="secondSurprise" class="hidden second">
+        <div class="quote">💐 Ma'am, this little website is just a small way of saying<br>
+        <b>Thank you for everything!</b> ❤️</div>
+        <p class="signature">Wishing you a very Happy Teachers' Day! ✨</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Made with gratitude & a little creativity ❤️</div>
+</div>
+
+<script>
+for(let i=0;i<18;i++){
+ const p=document.createElement('div');p.className='petal';
+ p.textContent=['🌸','🌷','💗','✨'][Math.floor(Math.random()*4)];
+ p.style.left=Math.random()*100+'vw';
+ p.style.animationDuration=(6+Math.random()*7)+'s';
+ p.style.animationDelay=(-Math.random()*10)+'s';
+ document.body.appendChild(p);
+}
+
+function showSurprise(){
+ document.getElementById('surprise').classList.remove('hidden');
+ celebrate();
+ document.querySelector('#surprise').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function secondSurprise(){
+ document.getElementById('secondSurprise').classList.remove('hidden');
+ celebrate();
+ document.getElementById('secondSurprise').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function celebrate(){
+ const c=document.getElementById('confetti'),ctx=c.getContext('2d');
+ c.width=innerWidth;c.height=innerHeight;
+ let pieces=[];
+ for(let i=0;i<140;i++) pieces.push({
+   x:innerWidth/2,y:innerHeight*.42,
+   vx:(Math.random()-.5)*12,vy:Math.random()*-11-3,
+   s:Math.random()*7+3,r:Math.random()*Math.PI,
+   life:100+Math.random()*80
+ });
+ function frame(){
+   ctx.clearRect(0,0,c.width,c.height);
+   pieces.forEach(p=>{
+    p.x+=p.vx;p.vy+=.25;p.y+=p.vy;p.r+=.15;p.life--;
+    ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);
+    ctx.fillStyle=['#d84b7b','#f0a6bd','#e8c24d','#9d5b82','#f58bb0'][Math.floor(Math.random()*5)];
+    ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s);ctx.restore();
+   });
+   pieces=pieces.filter(p=>p.life>0&&p.y<innerHeight+30);
+   if(pieces.length)requestAnimationFrame(frame);
+ }
+ frame();
+}
+</script>
+</body>
+</html>
